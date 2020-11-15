@@ -12,3 +12,5 @@
 Источники:
 
 https://arxiv.org/pdf/2010.10119.pdf
+
+https://riscv.org/wp-content/uploads/2015/02/riscv-software-stack-tutorial-hpca2015.pdf
