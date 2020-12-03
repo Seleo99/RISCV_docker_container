@@ -18,3 +18,5 @@ https://riscv.org/wp-content/uploads/2015/02/riscv-software-stack-tutorial-hpca2
 https://github.com/avidan-efody/riscv-spike
 
 http://diy.inria.fr/tst/doc/litmus.html#cross
+
+https://www.cl.cam.ac.uk/~pes20/weakmemory/tacas11.pdf
