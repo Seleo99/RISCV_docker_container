@@ -22,3 +22,5 @@ http://diy.inria.fr/tst/doc/litmus.html#cross
 https://www.cl.cam.ac.uk/~pes20/weakmemory/tacas11.pdf
 
 https://community.arm.com/developer/ip-products/processors/b/processors-ip-blog/posts/generate-litmus-tests-automatically-diy7-tool
+
+https://prydt.xyz/b/2020/06/16/installing-spike.html
