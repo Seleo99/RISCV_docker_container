@@ -24,3 +24,5 @@ https://www.cl.cam.ac.uk/~pes20/weakmemory/tacas11.pdf
 https://community.arm.com/developer/ip-products/processors/b/processors-ip-blog/posts/generate-litmus-tests-automatically-diy7-tool
 
 https://prydt.xyz/b/2020/06/16/installing-spike.html
+
+https://github.com/ocaml/opam-repository/issues/16704
