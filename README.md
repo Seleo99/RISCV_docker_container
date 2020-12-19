@@ -1,10 +1,10 @@
-# Организация докер-контейнера для запуска litmus-тестов в spike симуляторе.
+# Организация докер-контейнера для запуска litmus-тестов в Spike симуляторе.
 
 Цель: собрать докер-контейнер, в котором запускаются litmus-тесты в функциональном симуляторе, например spike
 
-Симулятор: https://github.com/riscv/riscv-isa-sim
+Simulator: https://github.com/riscv/riscv-isa-sim
 
-Тесты: https://github.com/litmus-tests/litmus-tests-riscv
+Tests: https://github.com/litmus-tests/litmus-tests-riscv
 
 Важно: не обязательно брать spike в качестве симулятора. Главное, чтобы симулятор мог симулировать исполнение RISC-V кода в многопроцессорной (многоядерной) системе.
 
