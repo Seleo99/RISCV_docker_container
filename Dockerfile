@@ -1,23 +1,70 @@
-FROM ubuntu:20.10
+FROM ubuntu:19.10
 
 RUN apt-get update -y && apt-get install -y git gcc make g++ device-tree-compiler
 
-# spike build tools and dependencies
-RUN apt-get install -y gcc-riscv64-unknown-elf gcc-riscv64-linux-gnu g++-riscv64-linux-gnu
+#RUN apt-get install -y gcc-4.8
+#RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 50
 
-# installing newlib & pk. these are not required for bare metal (see examples in README.md) 
+#for gnu toolchain
+RUN apt-get install -y autoconf automake autotools-dev curl python3 libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev libexpat-dev
 
 
-# installing spike iself
+#opam and herdtools for litmus7
+RUN apt-get install -y opam 
+RUN opam init --disable-sendboxing
+RUN eval $(opam env)
+RUN opam install -y herdtools7
 
-RUN git clone https://github.com/riscv/riscv-isa-sim.git
+# env paths
+RUN cd / && mkdir RISCV && cd RISCV
+RUN export RISCV=/RISCV
+RUN export PATH=$PATH:$RISCV/bin
 
-RUN cd /riscv-isa-sim && \
+#incstalling RISCV GNU Toolchain
+
+RUN cd /RISCV && \
+    git clone --recursive https://github.com/riscv/riscv-gnu-toolchain
+    
+RUN cd riscv-gnu-toolchain
+    mkdir build
+    cd build
+    ../configure --prefix=$RISCV --with-arch=rv64im --with-abi=ilp64
+    make
+
+# installing and making newlib & proxy kernel
+RUN cd /RISCV && \
+    git clone https://github.com/riscv/riscv-newlib.git
+    
+#we can use binaries as well
+RUN cd /RISCV/riscv-newlib && \
     mkdir build && \
-    cd build && \ 
-    ../configure --prefix=/usr/local && \
+    cd build && \
+    ../configure  --target=riscv64-unknown-elf && \
+    make -j$(nproc) && \
+    make install
+    
+RUN cd /RISCV && \
+    git clone https://github.com/riscv/riscv-pk.git
+
+RUN cd /RISCV/riscv-pk && \
+    mkdir build && \
+    cd build && \
+    ../configure --prefix=$RISCV --host=riscv64-unknown-elf && \
     make && \
     make install
+    
+RUN cd /RISCV && \
+    git clone https://github.com/riscv/riscv-isa-sim
+
+RUN cd /RISCV/riscv-isa-sim && \
+    mkdir build && \
+    cd build && \ 
+    ../configure --prefix=$RISCV && \
+    make && \
+    make install
+
+RUN cd /RISCV && \
+    git clone https://github.com/litmus-tests/litmus-tests-riscv
 
 # pass all commands transparently into container
 ENTRYPOINT ["bash", "-lc"]
